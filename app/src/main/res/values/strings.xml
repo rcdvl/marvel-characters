@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Marvel Characters</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mauris est, condimentum eu eros ut, tempor pharetra velit. Maecenas pellentesque pretium tellus, eget facilisis dui posuere sit amet. Integer hendrerit nec sapien sed cursus</string>
+    <string name="network_error">There was an error while loading, tap here to try again</string>
+
+    <!-- FILL THESE WITH YOUR MARVEL API KEYS -->
+    <string name="api_private_key"></string>
+    <string name="api_public_key"></string>
+</resources>

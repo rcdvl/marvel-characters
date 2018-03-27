@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="290dp"
+                android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/resourceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="Hulk #1"
+        android:textColor="@color/lightGray"
+        android:textSize="16sp"/>
+
+    <ImageView
+        android:id="@+id/resourceImage"
+        android:layout_width="match_parent"
+        android:layout_height="442dp"
+        android:layout_above="@id/resourceText"
+        android:layout_marginBottom="16dp"
+        android:scaleType="fitXY"/>
+
+</RelativeLayout>
