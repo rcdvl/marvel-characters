@@ -99,7 +99,7 @@
                     android:textColor="@color/colorAccent"
                     android:textStyle="bold" />
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/comicsList"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -123,7 +123,7 @@
                     android:textColor="@color/colorAccent"
                     android:textStyle="bold" />
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/seriesList"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -147,7 +147,7 @@
                     android:textColor="@color/colorAccent"
                     android:textStyle="bold" />
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/storiesList"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -171,7 +171,7 @@
                     android:textColor="@color/colorAccent"
                     android:textStyle="bold" />
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/eventsList"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -189,7 +189,7 @@
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold" />
 
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/detailButton"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -208,7 +208,7 @@
                 android:layout_height="1dp"
                 android:background="@color/dividerGray" />
 
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/wikiButton"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -226,7 +226,7 @@
                 android:layout_height="1dp"
                 android:background="@color/dividerGray" />
 
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/comiclinkButton"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"

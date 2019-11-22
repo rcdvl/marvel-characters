@@ -1,13 +1,13 @@
 package com.rcdvl.marvel.ui.search
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.paginate.Paginate
 import com.rcdvl.marvel.MarvelApplication
 import com.rcdvl.marvel.R
@@ -44,9 +44,9 @@ class CharacterSearchFragment : Fragment() {
         const val EXTRA_QUERY = "extra-query"
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        (activity.application as MarvelApplication).appComponent.inject(this)
+        (activity?.application as MarvelApplication).appComponent.inject(this)
         viewModel = ViewModelProviders.of(this,
                 marvelViewModelFactory)[CharacterListViewModel::class.java]
         viewModel.liveData.observe(this,
@@ -67,7 +67,7 @@ class CharacterSearchFragment : Fragment() {
         return inflater?.inflate(R.layout.fragment_character_list, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val layoutManager = LinearLayoutManager(context)
         charactersList.layoutManager = layoutManager
         charactersList.setHasFixedSize(true)
@@ -79,7 +79,7 @@ class CharacterSearchFragment : Fragment() {
         if (savedInstanceState == null) {
             refreshWithNewQuery()
         } else {
-            query = arguments.getString(EXTRA_QUERY)
+            query = arguments?.getString(EXTRA_QUERY) ?: ""
         }
 
         setupPagination()
@@ -88,7 +88,7 @@ class CharacterSearchFragment : Fragment() {
     }
 
     fun refreshWithNewQuery() {
-        query = arguments.getString(EXTRA_QUERY)
+        query = arguments?.getString(EXTRA_QUERY) ?: ""
         viewModel.reset()
 
         adapter.characters = arrayListOf()

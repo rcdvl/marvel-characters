@@ -1,7 +1,7 @@
 package com.rcdvl.marvel.ui.resourcedetails
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.rcdvl.marvel.R
 import com.rcdvl.marvel.model.MarvelResource
 import kotlinx.android.synthetic.main.toolbar.*

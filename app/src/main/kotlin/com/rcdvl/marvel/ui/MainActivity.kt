@@ -4,9 +4,9 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.SearchView
 import android.view.Menu
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import com.rcdvl.marvel.R
 import com.rcdvl.marvel.ui.list.CharacterListFragment
 import com.rcdvl.marvel.ui.search.CharacterSearchFragment
@@ -47,9 +47,10 @@ class MainActivity : AppCompatActivity() {
                 transaction.addToBackStack("")
                 transaction.commit()
             } else {
-                currentFragment.arguments.putString(CharacterSearchFragment.EXTRA_QUERY, query)
+                currentFragment.arguments?.putString(CharacterSearchFragment.EXTRA_QUERY, query)
                 currentFragment.refreshWithNewQuery()
             }
         }
+        super.onNewIntent(intent)
     }
 }

@@ -1,6 +1,6 @@
 package com.rcdvl.marvel.ui.util
 
-import android.support.v4.view.ViewPager
+import androidx.viewpager.widget.ViewPager
 import android.view.View
 
 /**
@@ -9,15 +9,11 @@ import android.view.View
 class ZoomOutSlideTransformer : ViewPager.PageTransformer {
 
     companion object {
-        val MIN_SCALE = 0.9f;
-        val MIN_ALPHA = 0.6f;
+        const val MIN_SCALE = 0.9f
+        const val MIN_ALPHA = 0.6f
     }
 
-    override fun transformPage(page: View?, position: Float) {
-        if (page == null) {
-            return
-        }
-
+    override fun transformPage(page: View, position: Float) {
         val correctPosition = position - (page.parent as ViewPager).paddingRight / page.width.toFloat()
 
         if (correctPosition <= -1 || correctPosition >= 1) {

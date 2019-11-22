@@ -1,7 +1,7 @@
 package com.rcdvl.marvel.ui
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.rcdvl.marvel.model.MarvelResponse
 import com.rcdvl.marvel.networking.MarvelService
 import io.reactivex.Observable

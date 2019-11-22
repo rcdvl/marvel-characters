@@ -1,11 +1,11 @@
 package com.rcdvl.marvel.ui.resourcedetails
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
-import android.support.v4.view.ViewPager
 import android.view.*
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.rcdvl.marvel.R
 import com.rcdvl.marvel.model.MarvelResource
 import com.rcdvl.marvel.ui.util.AndroidUtils
@@ -21,7 +21,8 @@ class ResourceDetailsFragment : Fragment() {
     var resources: ArrayList<MarvelResource> = ArrayList()
 
     companion object {
-        fun newInstance(resources: ArrayList<MarvelResource>, selectedIndex: Int): ResourceDetailsFragment {
+        fun newInstance(resources: ArrayList<MarvelResource>,
+                        selectedIndex: Int): ResourceDetailsFragment {
             val args = Bundle().apply {
                 putSerializable(EXTRA_RESOURCES, resources)
                 putInt(EXTRA_SELECTED_INDEX, selectedIndex)
@@ -36,22 +37,24 @@ class ResourceDetailsFragment : Fragment() {
         const val EXTRA_SELECTED_INDEX = "extra-selected-index"
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
-        return inflater?.inflate(R.layout.fragment_resource_details, container, false)
+        return inflater.inflate(R.layout.fragment_resource_details, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        resources = arguments.getSerializable(EXTRA_RESOURCES) as ArrayList<MarvelResource>
+        resources = arguments?.getSerializable(EXTRA_RESOURCES) as ArrayList<MarvelResource>
 
         pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
 
             }
 
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            override fun onPageScrolled(position: Int, positionOffset: Float,
+                                        positionOffsetPixels: Int) {
 
             }
 
@@ -61,20 +64,20 @@ class ResourceDetailsFragment : Fragment() {
 
         })
 
-        pager.adapter = ResourceDetailsPagerAdapter(fragmentManager)
+        pager.adapter = fragmentManager?.let { ResourceDetailsPagerAdapter(it) }
         pageIndicator.text = "1/${resources.size}"
         pager.pageMargin = AndroidUtils.dpToPx(8f).toInt();
 
-        pager.setCurrentItem(arguments.getInt(EXTRA_SELECTED_INDEX), false)
+        pager.setCurrentItem(arguments!!.getInt(EXTRA_SELECTED_INDEX), false)
         pager.setPageTransformer(true, ZoomOutSlideTransformer())
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.menu_resource_details, menu)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_resource_details, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.itemId == R.id.close) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.close) {
             activity?.onBackPressed()
         }
 
@@ -83,7 +86,7 @@ class ResourceDetailsFragment : Fragment() {
 
     inner class ResourceDetailsPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
-        override fun getItem(position: Int): Fragment? {
+        override fun getItem(position: Int): Fragment {
             return ResourceDetailsPageFragment.newInstance(resources[position])
         }
 

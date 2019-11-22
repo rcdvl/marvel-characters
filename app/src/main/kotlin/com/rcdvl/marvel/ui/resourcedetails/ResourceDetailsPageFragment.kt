@@ -1,7 +1,7 @@
 package com.rcdvl.marvel.ui.resourcedetails
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,22 +32,24 @@ class ResourceDetailsPageFragment : Fragment() {
     }
 
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_resource_page, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_resource_page, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var resource = arguments.getSerializable(EXTRA_RESOURCE)
+        var resource = arguments?.getSerializable(EXTRA_RESOURCE)
 
         if (resource != null) {
             resource = resource as MarvelResource
 
-            GlideApp.with(context)
-                    .load(resource.thumbnail?.path + '.' + resource.thumbnail?.extension)
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(resourceImage)
+            context?.let {
+                GlideApp.with(it)
+                        .load(resource.thumbnail?.path + '.' + resource.thumbnail?.extension)
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .into(resourceImage)
+            }
 
             resourceText.text = resource.title
         }

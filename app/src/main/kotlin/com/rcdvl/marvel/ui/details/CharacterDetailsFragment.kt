@@ -1,22 +1,21 @@
 package com.rcdvl.marvel.ui.details
 
 import android.annotation.SuppressLint
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.AppCompatTextView
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.transition.TransitionSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.paginate.Paginate
 import com.rcdvl.marvel.MarvelApplication
 import com.rcdvl.marvel.R
@@ -69,17 +68,17 @@ class CharacterDetailsFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        character = arguments.getSerializable(CharactersAdapter.EXTRA_CHARACTER) as MarvelCharacter
-        (activity.application as MarvelApplication).appComponent.inject(this)
+        character = arguments?.getSerializable(CharactersAdapter.EXTRA_CHARACTER) as MarvelCharacter
+        (activity?.application as MarvelApplication).appComponent.inject(this)
         viewModel = ViewModelProviders.of(this,
                 marvelViewModelFactory)[CharacterDetailsViewModel::class.java]
 
         return inflater?.inflate(R.layout.fragment_character_details, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         GlideApp.with(view)
                 .load(character.thumbnail?.path + '.' + character.thumbnail?.extension)
                 .dontTransform()
@@ -114,7 +113,8 @@ class CharacterDetailsFragment : Fragment() {
                 eventsContainer)
 
         lists.forEachIndexed { index, list ->
-            list.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            list.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context,
+                    androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL, false)
             list.addItemDecoration(HorizontalSpaceItemDecoration())
             hideIfEmpty(listsContainers[index], listsContents[index])
             setupPagination(lists[index], contentTypes[index])
@@ -132,28 +132,29 @@ class CharacterDetailsFragment : Fragment() {
     @SuppressLint("NewApi")
     private fun startSharedElementTransition() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val imageTransitionName = arguments.getString(
+            val imageTransitionName = arguments?.getString(
                     CharactersAdapter.EXTRA_CHARACTER_IMAGE_TRANSITION_NAME)
-            val nameTransitionName = arguments.getString(
+            val nameTransitionName = arguments?.getString(
                     CharactersAdapter.EXTRA_CHARACTER_NAME_TRANSITION_NAME)
             characterImage.transitionName = imageTransitionName
             characterName.transitionName = nameTransitionName
 
-            val transition = activity.window.sharedElementEnterTransition
+            val transition = activity?.window?.sharedElementEnterTransition
             if (transition is TransitionSet) {
                 transition.addTransition(TextResize())
             }
         }
 
         contentLayout.requestFocus()
-        activity.supportStartPostponedEnterTransition()
+        activity?.supportStartPostponedEnterTransition()
     }
 
     private fun hideIfEmpty(view: View, list: MarvelListWrapper?) {
-        if (list == null || list.items == null || list.items!!.size == 0) view.visibility = View.GONE
+        if (list?.items == null || list.items!!.size == 0) view.visibility = View.GONE
     }
 
-    private fun setupPagination(list: RecyclerView, resourceType: String) {
+    private fun setupPagination(list: androidx.recyclerview.widget.RecyclerView,
+                                resourceType: String) {
         val adapter = CharacterResourceAdapter(ArrayList())
         list.adapter = adapter
 
@@ -178,7 +179,7 @@ class CharacterDetailsFragment : Fragment() {
     }
 
     private fun setMiscButtonListener(button: View, type: String) {
-        button.setOnClickListener({
+        button.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
             val detailUrl = character.urls?.first { it.type.equals(type, true) }
 
@@ -186,7 +187,7 @@ class CharacterDetailsFragment : Fragment() {
                 intent.data = Uri.parse(detailUrl.url)
                 startActivity(intent)
             }
-        })
+        }
 
     }
 }

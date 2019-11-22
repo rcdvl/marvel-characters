@@ -1,12 +1,12 @@
 package com.rcdvl.marvel.ui.list
 
-import android.support.v4.view.ViewCompat
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.ViewCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.rcdvl.marvel.R
 import com.rcdvl.marvel.model.MarvelCharacter
@@ -28,12 +28,12 @@ class CharactersAdapter : RecyclerView.Adapter<CharacterViewHolder>() {
         const val EXTRA_CHARACTER_NAME_TRANSITION_NAME = "extra-character-name-transition-name"
     }
 
-    override fun onAttachedToRecyclerView(recyclerView: RecyclerView?) {
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         this.recyclerView = recyclerView
         super.onAttachedToRecyclerView(recyclerView)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): CharacterViewHolder? {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_character,
                 parent, false)
 
@@ -49,17 +49,17 @@ class CharactersAdapter : RecyclerView.Adapter<CharacterViewHolder>() {
         return CharacterViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: CharacterViewHolder?, position: Int) {
-        holder?.characterName?.text = characters[position].name
+    override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
+        holder.characterName?.text = characters[position].name
 
-        ViewCompat.setTransitionName(holder?.characterImage, characters[position].id.toString())
-        ViewCompat.setTransitionName(holder?.characterName, "${characters[position].id}-name")
+        ViewCompat.setTransitionName(holder.characterImage, characters[position].id.toString())
+        ViewCompat.setTransitionName(holder.characterName, "${characters[position].id}-name")
 
-        GlideApp.with(holder?.itemView?.context)
+        GlideApp.with(holder.itemView?.context)
                 .load(characters[position].thumbnail.path + '.' + characters[position].thumbnail.extension)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .dontTransform()
-                .into(holder?.characterImage)
+                .into(holder.characterImage)
     }
 
     override fun getItemCount() = characters.size

@@ -7,14 +7,12 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.TransitionDrawable
 import android.os.Build
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.graphics.Palette
 import android.transition.Transition
 import android.transition.Transition.TransitionListener
 import android.util.AttributeSet
-import android.util.Log
-import android.view.View
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.palette.graphics.Palette
 import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.rcdvl.marvel.R
 
@@ -87,11 +85,11 @@ class DiagonalDividerImageView : ImageView {
         }
     }
 
-    override fun setImageBitmap(bm: Bitmap?) {
+    override fun setImageBitmap(bm: Bitmap) {
         super.setImageBitmap(bm)
 
         Palette.from(bm).generate {
-            borderColor = it.getVibrantColor(0)
+            borderColor = it!!.getVibrantColor(0)
             invalidate()
             onBorderChangeListener?.onBorderChange(borderColor)
         }
@@ -102,7 +100,7 @@ class DiagonalDividerImageView : ImageView {
 
         if (drawable != null) {
             Palette.from(drawableToBitmap(drawable)).generate {
-                borderColor = it.getVibrantColor(0)
+                borderColor = it!!.getVibrantColor(0)
                 invalidate()
                 onBorderChangeListener?.onBorderChange(borderColor)
             }
@@ -122,7 +120,8 @@ class DiagonalDividerImageView : ImageView {
 
         if (isBorderEnabled) {
             borderPaint.color = borderColor
-            canvas?.drawLine(0f, height.toFloat() - px, width.toFloat(), height.toFloat(), borderPaint)
+            canvas?.drawLine(0f, height.toFloat() - px, width.toFloat(), height.toFloat(),
+                    borderPaint)
         }
     }
 
@@ -146,9 +145,11 @@ class DiagonalDividerImageView : ImageView {
         }
 
         bitmap = if (drawable.intrinsicWidth <= 0 || drawable.intrinsicHeight <= 0) {
-            Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888) // Single color bitmap will be created of 1x1 pixel
+            Bitmap.createBitmap(1, 1,
+                    Bitmap.Config.ARGB_8888) // Single color bitmap will be created of 1x1 pixel
         } else {
-            Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
+            Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight,
+                    Bitmap.Config.ARGB_8888)
         }
 
         val canvas = Canvas(bitmap)

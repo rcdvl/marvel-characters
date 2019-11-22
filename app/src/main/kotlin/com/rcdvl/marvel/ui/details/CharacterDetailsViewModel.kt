@@ -1,7 +1,7 @@
 package com.rcdvl.marvel.ui.details
 
-import android.arch.lifecycle.ViewModel
 import android.util.Log
+import androidx.lifecycle.ViewModel
 import com.rcdvl.marvel.networking.MarvelService
 
 /**
